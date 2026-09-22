@@ -1,6 +1,6 @@
 package com.todo.dao;
 
-import com.todo.entity.RecordEnum;
+import com.todo.entity.RecordStatus;
 import org.springframework.stereotype.Repository;
 import com.todo.entity.Record;
 import java.util.ArrayList;
@@ -11,9 +11,9 @@ import java.util.List;
 public class RecordDao {
     private final List<Record> records = new ArrayList<>(
             Arrays.asList(
-                    new Record("изучить спринг", RecordEnum.ACTIVE),
-                    new Record("изучить docker", RecordEnum.DONE),
-                    new Record("изучить kafka", RecordEnum.ACTIVE)
+                    new Record("изучить спринг", RecordStatus.ACTIVE),
+                    new Record("изучить docker", RecordStatus.ACTIVE),
+                    new Record("изучить kafka", RecordStatus.ACTIVE)
             )
     );
 

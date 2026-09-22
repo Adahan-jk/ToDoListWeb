@@ -1,6 +1,6 @@
 package com.todo.entity;
 
-public enum RecordEnum {
+public enum RecordStatus {
     ACTIVE,
     DONE
 }

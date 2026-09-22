@@ -1,15 +1,15 @@
 package com.todo.entity;
 
 public class Record {
-    public Record(String title, RecordEnum status) {
+    public Record(String title, RecordStatus status) {
         this.title = title;
         this.status = status;
     }
 
     private final String title;
-    private RecordEnum status;
+    private RecordStatus status;
 
-    public RecordEnum getStatus() {
+    public RecordStatus getStatus() {
         return status;
     }
 
@@ -17,7 +17,7 @@ public class Record {
         return title;
     }
 
-    public void setStatus(RecordEnum status) {
+    public void setStatus(RecordStatus status) {
         this.status = status;
     }
 }

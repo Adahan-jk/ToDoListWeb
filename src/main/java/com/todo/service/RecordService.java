@@ -2,6 +2,7 @@ package com.todo.service;
 
 import com.todo.dao.RecordDao;
 import com.todo.entity.Record;
+import com.todo.entity.RecordStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +20,19 @@ public class RecordService {
 
     public List<Record> findAllRecords(){
         return recordDao.findAll();
+    }
+
+    public void saveRecord(String title){
+        if (title != null && !title.isBlank()){
+            recordDao.saveRecord(new Record(title));
+        }
+    }
+
+    public void updateRecordStatus(int id, RecordStatus newStatus){
+        recordDao.updateRecordStatus(id, newStatus);
+    }
+
+    public void deleteRecord(int id){
+        recordDao.deleteRecord(id);
     }
 }

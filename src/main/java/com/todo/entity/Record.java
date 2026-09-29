@@ -1,31 +1,42 @@
 package com.todo.entity;
 
-public class Record {
-    private static int counterSequence;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-    private final int id;
-    private final String title;
+@Entity
+@Table(name = "records")
+public class Record {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    private String title;
+
+    @Enumerated(EnumType.STRING)
     private RecordStatus status;
 
+    protected Record() {
+    }
+
     public Record(String title, RecordStatus status) {
-        this.id = counterSequence++;
         this.title = title;
         this.status = status;
     }
 
     public Record(String title) {
-        this.id = counterSequence++;
         this.title = title;
         this.status = RecordStatus.ACTIVE;
     }
 
-
-
     public int getId() {
         return id;
     }
-
-
 
     public RecordStatus getStatus() {
         return status;

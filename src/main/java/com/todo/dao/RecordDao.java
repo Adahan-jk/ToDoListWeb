@@ -1,38 +1,41 @@
 package com.todo.dao;
 
+import com.todo.entity.Record;
 import com.todo.entity.RecordStatus;
 import org.springframework.stereotype.Repository;
-import com.todo.entity.Record;
-import java.util.ArrayList;
-import java.util.Arrays;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
+@Transactional
 public class RecordDao {
-    private final List<Record> records = new ArrayList<>(
-            Arrays.asList(
-                    new Record("изучить спринг", RecordStatus.ACTIVE),
-                    new Record("изучить docker", RecordStatus.DONE),
-                    new Record("изучить kafka", RecordStatus.ACTIVE)
-            )
-    );
+    @PersistenceContext
+    private EntityManager em;
 
-    public List<Record> findAll(){return new ArrayList<>(records);}
-
-    public void saveRecord(Record record){
-        records.add(record);
+    public List<Record> findAll() {
+        return em.createQuery("SELECT r FROM Record r ORDER BY r.id", Record.
+                        class)
+                .getResultList();
     }
 
-    public void updateRecordStatus(int id, RecordStatus newStatus){
-        for(Record item: records){
-            if (item.getId()==id){
-                item.setStatus(newStatus);
-                break;
-            }
+    public void saveRecord(Record record) {
+        em.persist(record);
+    }
+
+    public void updateRecordStatus(int id, RecordStatus newStatus) {
+        Record item = em.find(Record.class, id);
+        if (item != null) {
+            item.setStatus(newStatus);
         }
     }
 
-    public void deleteRecord(int id){
-        records.removeIf(item -> item.getId() == id);
+    public void deleteRecord(int id) {
+        Record item = em.find(Record.class, id);
+        if (item != null) {
+            em.remove(item);
+        }
     }
 }

@@ -31,7 +31,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public DataSource dataSource() {
         HikariDataSource ds = new HikariDataSource();
-        ds.setJdbcUrl("jdbc:postgresql://localhost:5432/tododb");
+        String dbHost = System.getenv().getOrDefault("DB_HOST", "localhost");
+        ds.setJdbcUrl("jdbc:postgresql://" + dbHost + ":5432/tododb");
                 ds.setUsername("todouser");
         ds.setPassword("todopass");
         ds.setDriverClassName("org.postgresql.Driver");
